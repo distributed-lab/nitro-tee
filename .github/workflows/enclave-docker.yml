@@ -76,7 +76,7 @@ jobs:
           sudo apt install build-essential
           git clone https://github.com/aws/aws-nitro-enclaves-cli.git
           cd aws-nitro-enclaves-cli
-          make nitro-cli
+          make CC=musl-gcc nitro-cli
           sudo cp build/nitro_cli/release/nitro-cli /usr/bin
           sudo cp build/nitro_cli/release/nitro-cli ~/nitro-cache/
           cd ..
@@ -155,6 +155,7 @@ jobs:
           no-cache: true
           target: nitro-node-enclave
           tags: nitro-node-enclave:latest
+          load: true
 
       # Create directory for artifacts
       - name: Create Output Directory

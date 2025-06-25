@@ -109,7 +109,7 @@ COPY --from=contracts-builder workspace/contracts-legacy/build/contracts/src/pre
 COPY --from=contracts-builder workspace/.make/ .make/
 RUN PATH="$PATH:/usr/local/go/bin" NITRO_BUILD_IGNORE_TIMESTAMPS=1 make build-wasm-bin
 
-FROM rust:1.81.0-slim-bookworm AS nsmlib-builder
+FROM rust:1.84.1-slim-bookworm AS nsmlib-builder
 WORKDIR /workspace
 RUN export DEBIAN_FRONTEND=noninteractive && \
     apt-get update && \
@@ -410,7 +410,7 @@ RUN go mod download
 RUN mkdir -p target/bin
 RUN PKG_CONFIG_PATH=/workspace/target/pkgconfig go build -o target/bin/nitro-attestation-cli .
 
-FROM ghcr.io/espressosystems/nitro-espresso-integration/socat:v1.7.4.4 AS socat-export
+FROM ghcr.io/espressosystems/nitro-tee/socat:v1.7.4.4 AS socat-export
 
 FROM nitro-node AS nitro-node-enclave
 USER root
